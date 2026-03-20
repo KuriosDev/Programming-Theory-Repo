@@ -4,7 +4,7 @@ using UnityEngine;
 public class Cylinder : Shape // INHERITANCE
 {
 
-    void Update()
+    protected override void OnUpdate() // POLYMORPHISM
     {
         if (Color != rend.material.color)
         {
@@ -22,17 +22,11 @@ public class Cylinder : Shape // INHERITANCE
         rb.AddForce(Vector3.up * JumpSpeed, ForceMode.Impulse);
     }
 
-    public override void DisplayText() // POLYMORPHISM
-    {
-        TextMeshProUGUI text = GameObject.Find("DisplayText").GetComponent<TextMeshProUGUI>();
-        text.text = this.ToString();
-    }
-
     public override string ToString() // POLYMORPHISM
     {
         string message = base.ToString();
 
-        message += " I am a Cylinder!";
+        message += " I am a Cylinder! When you click on me, I change color.";
 
         return message; 
     }
@@ -40,6 +34,7 @@ public class Cylinder : Shape // INHERITANCE
     protected override void OnMouseDown() // POLYMORPHISM
     {
         ChangeColorRandomly();
+        MainManager.Instance.PlayMusic(1f);
         base.OnMouseDown();
     }
 }

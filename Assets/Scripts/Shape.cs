@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
@@ -9,7 +10,10 @@ public abstract class Shape : MonoBehaviour
     public string Name //ENCAPSULATION
     { 
         get => _name;
-        set => _name = value; 
+        set 
+        {
+            _name = value?.Substring(0, 10);
+        } 
     } 
     public Color Color  //ENCAPSULATION
     { 
@@ -17,9 +21,9 @@ public abstract class Shape : MonoBehaviour
         set => _color = value;
     }
 
-    private float _jumpSpeed;
+    private float _jumpSpeed = 2;
 
-    public float JumpSpeed
+    public float JumpSpeed  //ENCAPSULATION
     {
         get
         {
@@ -46,18 +50,28 @@ public abstract class Shape : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        OnStart();
+    }
+
+    protected virtual void OnStart()
+    {
         InitializeShape(); // ABSTRACTION
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        OnUpdate();
     }
+
+    protected virtual void OnUpdate(){}
 
     public abstract void Jump();
 
-    public abstract void DisplayText();
+    public void DisplayText()
+    {
+        MainManager.Instance.DisplayMessage(this.ToString());
+    }
 
     public override string ToString() // POLYMORPHISM
     {
