@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
@@ -12,7 +13,17 @@ public abstract class Shape : MonoBehaviour
         get => _name;
         set 
         {
-            _name = value?.Substring(0, 10);
+            if (value == null)
+            {
+                value = "";
+            }
+
+            if (value.Length > 15)
+            {
+                Debug.Log("A shape name can be at most 15 characters long.");
+            }
+
+            _name = new string(value.Take(15).ToArray());
         } 
     } 
     public Color Color  //ENCAPSULATION

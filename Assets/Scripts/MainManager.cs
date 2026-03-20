@@ -13,6 +13,7 @@ public class MainManager : MonoBehaviour
     [SerializeField] Button createButton;
     [SerializeField] TextMeshProUGUI messageText;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] TextMeshProUGUI instructionsText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -35,6 +36,7 @@ public class MainManager : MonoBehaviour
     public void OnCreateClick()
     {
         createButton.gameObject.SetActive(false);
+        instructionsText.gameObject.SetActive(true);
         CreateShapes(); // ABSTRACTION
     }
 
@@ -58,7 +60,7 @@ public class MainManager : MonoBehaviour
         height = cylinder.GetComponent<Renderer>().bounds.size.y;
         cylinder.transform.SetPositionAndRotation(new Vector3(0f, height / 2f, 0f), cylinderPrefab.transform.rotation);
 
-        cylinder.Name = "Will Smith";
+        cylinder.Name = null;
         cylinder.Color = Color.green;
         cylinder.JumpSpeed = 8f;
 
@@ -66,7 +68,7 @@ public class MainManager : MonoBehaviour
         height = sphere.GetComponent<Renderer>().bounds.size.y;
         sphere.transform.SetPositionAndRotation(new Vector3(3f, height / 2f, 0f), spherePrefab.transform.rotation);
         
-        sphere.Name = "Angelina Jolie";
+        sphere.Name = "Geena Davis";
         sphere.Color = Color.pink;
         sphere.JumpSpeed = 6f;
     }
